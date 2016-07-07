@@ -10,13 +10,13 @@ RapplingView
 
 使用方式:
 
-​	<FrameLayout>
+​	<帧布局>
 
-​	<你的布局>
+​	<你的布局 />
 
-​	<RapplingView/>
+​	<涟漪动画View />
 
-​	</FrameLayout>
+​	</帧布局>
 
 具体申明代码:
 
