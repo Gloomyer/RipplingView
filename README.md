@@ -4,5 +4,26 @@ RapplingView
 
 效果图:
 
-[效果图](/example.gif)
+![效果图](example.gif)
 
+
+
+使用方式:
+
+​	<FrameLayout>
+
+​	<你的布局>
+
+​	<RapplingView/>
+
+​	</FrameLayout>
+
+具体申明代码:
+
+
+
+        <com.gloomyer.rippling.RipplingView
+        	android:visibility="invisible" 
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent" />
+这里加上visibility=invisible,是为了你在预览修改你的界面的时候方便,Rappling会自动在程序启动的时候修改visibility=visible.
