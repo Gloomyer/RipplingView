@@ -30,6 +30,7 @@ public class RipplingView extends View {
     private Paint bigPaint;
     private Paint smallPaint;
     private int smallCircleSize;
+    private boolean isFinishInflate;
 
     public RipplingView(Context context) {
         this(context, null);
@@ -73,8 +74,6 @@ public class RipplingView extends View {
         width = canvas.getWidth();
         height = canvas.getHeight();
 
-        Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas tempcCanvas = new Canvas(bitmap);
 
         if (!isDraw) {
             bigCircleSize = (int) (canvas.getWidth() * 1.0f / 7);
@@ -82,14 +81,21 @@ public class RipplingView extends View {
             isDraw = true;
         }
 
-        tempcCanvas.drawColor(Color.WHITE);
-        tempcCanvas.drawCircle((width / 2),
-                (height / 2), bigCircleSize, bigPaint);
+        if (isFinishInflate) {
+            Bitmap bitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas tempcCanvas = new Canvas(bitmap);
+            tempcCanvas.drawColor(Color.WHITE);
+            tempcCanvas.drawCircle((width / 2),
+                    (height / 2), bigCircleSize, bigPaint);
+            canvas.drawBitmap(bitmap, 0, 0, null);
 
-        canvas.drawBitmap(bitmap, 0, 0, null);
-
-        canvas.drawCircle((width / 2),
-                (height / 2), smallCircleSize, smallPaint);
+            canvas.drawCircle((width / 2),
+                    (height / 2), smallCircleSize, smallPaint);
+        } else {
+            Paint paint = new Paint();
+            paint.setColor(Color.WHITE);
+            canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
+        }
     }
 
 
@@ -99,7 +105,7 @@ public class RipplingView extends View {
         new Thread() {
             @Override
             public void run() {
-
+                RipplingView.this.isFinishInflate = true;
                 while (bigCircleSize <= width || smallCircleSize >= 0) {
                     if (isDraw) {
                         bigCircleSize += Bigstep;
